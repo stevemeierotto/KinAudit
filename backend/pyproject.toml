@@ -1,0 +1,9 @@
+[project]
+name = "kinaudit-backend"
+version = "0.1.0"
+description = "KinAudit backend"
+requires-python = ">=3.12"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
