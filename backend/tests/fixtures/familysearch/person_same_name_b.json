@@ -1,0 +1,13 @@
+{
+  "persons": [
+    {
+      "id": "CHILD-2",
+      "names": [
+        {
+          "preferred": true,
+          "nameForms": [{ "fullText": "Same Name Person" }]
+        }
+      ]
+    }
+  ]
+}

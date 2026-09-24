@@ -7,9 +7,9 @@ project rules and architecture.
 
 ## Current stage
 
-Phase B — canonical genealogy model. The stack includes Phase A services plus
-PostgreSQL persistence for `people`, `external_identities`, and `relationships`
-(source claims with provenance). No source adapters or genealogy analysis yet.
+Phase C — source adapter foundation. FamilySearch person/parents retrieval is
+normalized and ingested into Phase B models through a service layer. There is
+no genealogy HTTP API, crawl, or analysis yet.
 
 ## Prerequisites
 
@@ -76,8 +76,25 @@ pytest
 ```
 
 - Phase A health tests do not require genealogy tables.
-- Genealogy invariant tests require real PostgreSQL and exercise uniqueness,
-  provenance, conflicting claims, and `ON DELETE RESTRICT` behavior.
+- Phase B genealogy invariant tests require real PostgreSQL.
+- Phase C FamilySearch adapter/ingestion tests use fixtures and mocked HTTP;
+  they make **no live FamilySearch calls**.
+
+## FamilySearch (Phase C)
+
+Source adapters live under `backend/app/sources/`. Persistence goes through
+`SourceIngestionService` (`backend/app/application/ingestion.py`).
+
+Development token injection (optional, for manual live experiments only):
+
+| Variable | Purpose |
+|----------|---------|
+| `FAMILYSEARCH_API_BASE_URL` | API host (default production) |
+| `FAMILYSEARCH_ACCESS_TOKEN` | Pre-obtained Bearer token (never commit) |
+| `FAMILYSEARCH_CLIENT_ID` | OAuth app key (future OAuth flow) |
+| `FAMILYSEARCH_REDIRECT_URI` | Registered redirect URI (future OAuth flow) |
+
+Phase C does not implement the OAuth browser login flow.
 
 ## Configuration
 

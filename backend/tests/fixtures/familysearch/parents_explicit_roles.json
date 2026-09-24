@@ -1,0 +1,65 @@
+{
+  "persons": [
+    {
+      "id": "pid-3",
+      "names": [
+        {
+          "preferred": true,
+          "nameForms": [{ "fullText": "Child Example" }]
+        }
+      ]
+    },
+    {
+      "id": "FJP-M4RK",
+      "names": [
+        {
+          "preferred": true,
+          "nameForms": [{ "fullText": "Explicit Father" }]
+        }
+      ],
+      "gender": { "type": "http://gedcomx.org/Male" }
+    },
+    {
+      "id": "JRW-NMSD",
+      "names": [
+        {
+          "preferred": true,
+          "nameForms": [{ "fullText": "Explicit Mother" }]
+        }
+      ],
+      "gender": { "type": "http://gedcomx.org/Female" }
+    }
+  ],
+  "relationships": [
+    {
+      "id": "REL-FATHER-1",
+      "type": "http://gedcomx.org/ParentChild",
+      "role": "http://gedcomx.org/Father",
+      "person1": { "resourceId": "FJP-M4RK" },
+      "person2": { "resourceId": "pid-3" },
+      "links": {
+        "parent": {
+          "href": "https://api.familysearch.org/platform/tree/persons/FJP-M4RK"
+        },
+        "child": {
+          "href": "https://api.familysearch.org/platform/tree/persons/pid-3"
+        }
+      }
+    },
+    {
+      "id": "REL-MOTHER-1",
+      "type": "http://gedcomx.org/ParentChild",
+      "role": "http://gedcomx.org/Mother",
+      "person1": { "resourceId": "JRW-NMSD" },
+      "person2": { "resourceId": "pid-3" },
+      "links": {
+        "parent": {
+          "href": "https://api.familysearch.org/platform/tree/persons/JRW-NMSD"
+        },
+        "child": {
+          "href": "https://api.familysearch.org/platform/tree/persons/pid-3"
+        }
+      }
+    }
+  ]
+}

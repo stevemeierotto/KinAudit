@@ -1,0 +1,32 @@
+{
+  "persons": [
+    {
+      "id": "PPPJ-MYZ",
+      "names": [
+        {
+          "preferred": true,
+          "nameForms": [
+            {
+              "fullText": "Alice Example",
+              "parts": [
+                { "type": "http://gedcomx.org/Given", "value": "Alice" },
+                { "type": "http://gedcomx.org/Surname", "value": "Example" }
+              ]
+            }
+          ]
+        }
+      ],
+      "gender": { "type": "http://gedcomx.org/Female" },
+      "facts": [
+        {
+          "type": "http://gedcomx.org/Birth",
+          "date": { "original": "about 1810" }
+        },
+        {
+          "type": "http://gedcomx.org/Death",
+          "date": { "original": "1888" }
+        }
+      ]
+    }
+  ]
+}
