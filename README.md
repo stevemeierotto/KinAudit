@@ -7,8 +7,9 @@ project rules and architecture.
 
 ## Current stage
 
-Phase A — repository foundation. The stack runs frontend, backend, and
-PostgreSQL with health checks. No genealogy functionality yet.
+Phase B — canonical genealogy model. The stack includes Phase A services plus
+PostgreSQL persistence for `people`, `external_identities`, and `relationships`
+(source claims with provenance). No source adapters or genealogy analysis yet.
 
 ## Prerequisites
 
@@ -38,21 +39,45 @@ Health endpoints:
 - `GET /health` — liveness
 - `GET /health/ready` — readiness (PostgreSQL reachable → 200, else 503)
 
-## Backend tests
+## Database migrations
 
-From the repository root, with dependencies installed:
+From `backend/`, with PostgreSQL reachable (for example via Compose) and
+`DATABASE_URL` set (see `.env.example`):
 
 ```bash
 cd backend
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt -r requirements-dev.txt
+alembic upgrade head
+```
+
+Useful Alembic commands:
+
+```bash
+alembic current
+alembic downgrade base
+alembic upgrade head
+```
+
+KinAudit UUID primary keys are generated in the Python/SQLAlchemy layer. The
+initial migration does not enable `pgcrypto` or `uuid-ossp`.
+
+## Backend tests
+
+With PostgreSQL up and migrations applied (tests also run `alembic upgrade head`
+once per session when the database is reachable):
+
+```bash
+cd backend
+source .venv/bin/activate
+pip install -r requirements.txt -r requirements-dev.txt
 pytest
 ```
 
-Liveness tests run without PostgreSQL. Readiness tests that need a database
-expect `DATABASE_URL` (default Compose credentials on localhost work when
-Postgres is up).
+- Phase A health tests do not require genealogy tables.
+- Genealogy invariant tests require real PostgreSQL and exercise uniqueness,
+  provenance, conflicting claims, and `ON DELETE RESTRICT` behavior.
 
 ## Configuration
 

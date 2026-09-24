@@ -5,9 +5,18 @@ from sqlalchemy.engine import Engine
 from sqlalchemy.orm import Session, sessionmaker
 
 from app.config import get_settings
+from app.database.base import Base
 
 _engine: Engine | None = None
 _SessionLocal: sessionmaker[Session] | None = None
+
+__all__ = [
+    "Base",
+    "check_database_connection",
+    "get_engine",
+    "get_session",
+    "reset_engine",
+]
 
 
 def get_engine() -> Engine:
